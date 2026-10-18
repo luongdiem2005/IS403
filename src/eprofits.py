@@ -253,7 +253,7 @@ def calculate_emp(
     pts_aug = np.vstack([pts, [1.0, 0.0]])
     try:
         hull = ConvexHull(pts_aug)
-        hull_ eq = pts_aug[hull.vertices]
+        hull_eq = pts_aug[hull.vertices]
         hull_pts = hull_eq[
             ~((hull_eq[:, 0] == 1.0) & (hull_eq[:, 1] == 0.0))
         ]
