@@ -14,3 +14,4 @@ torch>=2.1.0
 optuna>=3.4.0
 rtdl_revisiting_models>=0.0.2
 pytest>=7.4.0
+EMP-PY
