@@ -74,7 +74,7 @@ project/
 | 7 | Cài đặt e-Profits | `CLV = R·M / (1 − min(r, 0.995))` với `M = 0.3`; `C_offer = CPO·CLV` (`CPO = 0.1`); `C_contact = max(c0, c1·C_offer)`; lợi nhuận mỗi khách: TP = `CLV − C_offer − C_contact`, FP = `−C_offer − C_contact`, còn lại = 0; ngưỡng phân lớp **0.5**. Hỗ trợ `η = 1.0` (toàn bộ) và `η = 0.2` (top 20%) × `{ARR, TRR}` | `eprofits.py` | ☐ |
 | 8 | **Unit test bằng ví dụ Phụ lục A** | 5 khách hàng A–E (Bảng 9). Kết quả phải ra đúng **228,8 (TRR)** và **308,75 (ARR)** với `M=0.3, CPO=0.1, c0=5, c1=0.3`. Đây là bước kiểm chứng công thức quan trọng nhất trước khi chạy mô hình | `tests/test_eprofits_toy.py` pass | ☐ |
 | 9 | Cài đặt các thang đo | Accuracy, F1, AUC, Top-Decile Lift, Lift Index, e-Profits (4 biến thể), EMP (tuỳ chọn, ưu tiên thấp – cần thư viện/tự cài với `CLV=200, C_offer=10, C_contact=1`) | `evaluate.py` | ☐ |
-| 10 | Chuẩn bị 6 mô hình + lưới siêu tham số | RF, GBC, XGB, LGBM, CBC, EBM theo **Bảng 2** của bài báo (RF 108 tổ hợp, XGB 54, GBC 27, LGBM 8, CBC 8, EBM 72) | `models_base.py` | ☐ |
+| 10 | Chuẩn bị 6 mô hình + lưới siêu tham số | RF, GBC, XGB, LGBM, CBC, EBM theo **Bảng 2** của bài báo (RF 108 tổ hợp, XGB 54, GBC 27, LGBM 8, CBC 8, EBM 24) | `models_base.py` | ☐ |
 | 11 | Scorer e-Profits cho `GridSearchCV` | Viết `make_scorer` tự định nghĩa: nhận chỉ số fold, tra `R_i`, `r_i` của các khách trong fold, tính e-Profits. KM giữ cố định. Cần cách truyền `R`, `r` theo index (ví dụ giữ DataFrame và dùng `X.index`) | Scorer kiểm tra được | ☐ |
 | 12 | Huấn luyện + tuning | `GridSearchCV`, 5-fold CV **chỉ trên train**, với các mục tiêu tuning: AUC, Accuracy, F1, **e-Profits (TRR, toàn bộ)**; EMP làm sau nếu có thời gian. Sau tuning refit trên toàn bộ train, **đánh giá một lần trên test**. EBM chậm → dùng `n_jobs`/GPU, chạy qua đêm | `results/phase1_{ibm,maven}.csv` | ☐ |
 | 13 | Dựng lại Bảng 3, 4, 5 | Cùng định dạng cột như bài báo (F1, Acc, AUC, TDL, Lift index, e-Prof ×4, EMP) | `table3_repro.csv`, `table4_repro.csv`, `table5_repro.csv` | ☐ |
@@ -160,7 +160,7 @@ Số liệu thực tế: sau khi chia 80/20, train IBM ≈ 5,6 nghìn dòng; Mav
 |---|---|
 | 1. Mở đầu (bối cảnh, bài gốc, động lực, đóng góp) | Tóm tắt bài e-Profits; động lực: dữ liệu nhỏ vs DL, SMOTE vs bảo toàn phân bố |
 | 2. Cơ sở lý thuyết & phương pháp gốc | Eq.1–8, KM, CLV, mô hình chi phí, 6 mô hình, quy trình tuning (mục 3 bài báo) |
-| 3. Phương pháp mở rộng | Module 1 (LR, SVM+Platt, FT-T, NODE) và Module 2 (SMOTE), kèm lý do chọn |
+| 3. Phương pháp mở rộng | Module 1 (FT-T, NODE) và Module 2 (SMOTE), kèm lý do chọn |
 | 4. Thực nghiệm & đánh giá | Thiết lập (split, phần cứng, siêu tham số, thang đo) → Kết quả tái hiện (1.13–1.16) → Kết quả mở rộng (M1.10, M2.8) + phân tích lỗi |
 | 5. Kết luận & hướng phát triển | Tóm tắt, hạn chế (dữ liệu nhỏ, tham số giả định), hướng tiếp theo (Module 3, 4) |
 | Tài liệu tham khảo | References của bài gốc + Gorishniy et al., NODE, SMOTE, Platt |
