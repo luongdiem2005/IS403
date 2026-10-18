@@ -1,7 +1,8 @@
 # Đồ án IS403 – Tái hiện và mở rộng bài báo e-Profits
 
 > **Bài báo gốc:** *e-profits: a business-aligned evaluation metric for profit-sensitive customer churn prediction*<br>
-"@article{manzoor2026profits,
+```bibtex
+@article{manzoor2026profits,
   title={e-profits: a business-aligned evaluation metric for profit-sensitive customer churn prediction},
   author={Manzoor, Awais and Qureshi, M Atif and Kidney, Etain and Longo, Luca},
   journal={International Journal of Data Science and Analytics},
@@ -10,37 +11,38 @@
   pages={75},
   year={2026},
   publisher={Springer}
-}"
+}
+```
 > **Source Code:** https://github.com/Awaismanzoor/eprofits <br>
 > **Dữ liệu:** IBM Telco (7.043 dòng, 19 đặc trưng, churn 26,5%) · Maven Telecom (7.043 dòng, 32 đặc trưng, 27% churn / 67% stay / 6% new joiner)
 
-## 0. Phạm vi & thứ tự ưu tiên
+## 0. Phạm vi và thứ tự ưu tiên
 
 | Ưu tiên | Phần | Trạng thái |
 |---|---|---|
-| 🔴 Bắt buộc | **Giai đoạn 1** – Tái hiện bài báo gốc | ☐ |
-| 🔴 Bắt buộc | **Giai đoạn 2 – Module 1** – FT-Transformer, NODE | ☐ |
-| 🔴 Bắt buộc | **Giai đoạn 2 – Module 2** – SMOTE + XGBoost | ☐ |
-| 🟡 Nếu còn thời gian | **Giai đoạn 3 – Module 3** – Phân tích độ nhạy kinh doanh | ☐ |
-| 🟡 Nếu còn thời gian | **Giai đoạn 3 – Module 4** – Ablation & nhiễu | ☐ |
+| 1 | **Giai đoạn 1** – Tái hiện bài báo gốc | ☐ |
+| 2 | **Giai đoạn 2 – Module 1** – FT-Transformer, NODE | ☐ |
+| 3 | **Giai đoạn 2 – Module 2** – SMOTE + XGBoost | ☐ |
+| 4 | **Giai đoạn 3 – Module 3** – Phân tích độ nhạy kinh doanh | ☐ |
+| 5 | **Giai đoạn 3 – Module 4** – Ablation và nhiễu | ☐ |
 
 
 ---
 
 ## 1. Chuẩn bị chung 
 
-| ID | Công việc | Chi tiết | Output |
+| STT | Công việc | Chi tiết | Output |
 |---|---|---|---|
-| 0.1 | Đọc kỹ bài báo | Mục 3 (công thức Eq.1–8), Bảng 2 (lưới siêu tham số), Bảng 3–4 (kết quả), Phụ lục A (ví dụ 5 khách hàng) | Ghi chú tóm tắt công thức + tham số |
-| 0.2 | Đọc code gốc | Clone repo, đọc 4 file `.py` / notebook của IBM và Maven. **Ghi lại những gì bài báo không nói rõ**: tỷ lệ chia train/test, `random_state`, `stratify`, giá trị `c0`, `c1` trong thí nghiệm chính (phụ lục chỉ dùng `c0=5, c1=0.3` cho ví dụ), cách chọn "top 20%", đơn vị tenure | Bảng "tham số bài báo không nêu" (xem mục 7) |
-| 0.3 | Dựng môi trường | Python 3.10+, `scikit-learn`, `xgboost`, `lightgbm`, `catboost`, `interpret` (EBM), `lifelines` (Kaplan–Meier), `imbalanced-learn`, `torch`, `pytorch_tabular` hoặc `rtdl`, `optuna`. Khoá phiên bản bằng `requirements.txt`. Chạy trên Colab/Kaggle GPU cho phần deep learning | `requirements.txt`, môi trường chạy được |
-| 0.4 | Cấu trúc repo nhóm | Xem sơ đồ bên dưới | Repo GitHub của nhóm |
-| 0.5 | Cố định seed & log | Seed toàn cục, lưu mọi kết quả ra `results/*.csv` để dựng bảng báo cáo mà không phải chạy lại | `utils/seed.py`, thư mục `results/` |
-| 0.6 | Phân công | Gợi ý: (A) tiền xử lý + KM + e-Profits, (B) 6 mô hình gốc + tuning, (C) FT-T/NODE, (D) SMOTE + so sánh, (E) báo cáo + slide | Bảng phân công |
+| 1 | Đọc kỹ bài báo | Mục 3 (công thức Eq.1–8), Bảng 2 (lưới siêu tham số), Bảng 3–4 (kết quả), Phụ lục A (ví dụ 5 khách hàng) | Ghi chú tóm tắt công thức + tham số |
+| 2 | Đọc code gốc | Clone repo, đọc 4 file `.py` / notebook của IBM và Maven. **Ghi lại những gì bài báo không nói rõ**: tỷ lệ chia train/test, `random_state`, `stratify`, giá trị `c0`, `c1` trong thí nghiệm chính (phụ lục chỉ dùng `c0=5, c1=0.3` cho ví dụ), cách chọn "top 20%", đơn vị tenure | Bảng "tham số bài báo không nêu" (xem mục 7) |
+| 3 | Dựng môi trường | Python 3.10+, `scikit-learn`, `xgboost`, `lightgbm`, `catboost`, `interpret` (EBM), `lifelines` (Kaplan–Meier), `imbalanced-learn`, `torch`, `pytorch_tabular` hoặc `rtdl`, `optuna`. Khoá phiên bản bằng `requirements.txt`. Chạy trên Colab/Kaggle GPU cho phần deep learning | `requirements.txt`, môi trường chạy được |
+| 4 | Cấu trúc repo nhóm | Xem sơ đồ bên dưới | Repo GitHub của nhóm |
+| 5 | Cố định seed & log | Seed toàn cục, lưu mọi kết quả ra `results/*.csv` để dựng bảng báo cáo mà không phải chạy lại | `utils/seed.py`, thư mục `results/` |
+| 6 | Phân công | Gợi ý: (A) tiền xử lý + KM + e-Profits, (B) 6 mô hình gốc + tuning, (C) FT-T/NODE, (D) SMOTE + so sánh, (E) báo cáo + slide | Bảng phân công |
 
 ```
 project/
-├── data/            # IBM.csv, Maven.csv (bản gốc, không sửa)
+├── data/            # IBM.csv, Maven.csv (bản gốc)
 ├── src/
 │   ├── preprocess.py      # tiền xử lý, chia train/test
 │   ├── survival.py        # Kaplan–Meier, TRR/ARR
@@ -59,26 +61,26 @@ project/
 
 ## 2. GIAI ĐOẠN 1 – Tái hiện bài báo gốc
 
-**Mục tiêu:** chạy lại đúng quy trình và đạt kết quả tương đương Bảng 3, 4, 5 của bài báo (chấp nhận sai số do seed/split).
+**Mục tiêu:** Chạy lại đúng quy trình và đạt kết quả tương đương Bảng 3, 4, 5 của bài báo (chấp nhận sai số do seed/split).
 
-| ID | Công việc | Chi tiết / điểm cần cẩn thận | Output | Trạng thái |
+| STT | Công việc | Chi tiết / điểm cần cẩn thận | Output | Trạng thái |
 |---|---|---|---|---|
-| 1.1 | Tải & kiểm tra dữ liệu | IBM: kiểm tra `TotalCharges` (bản Kaggle thường có một số ô rỗng dù bài báo ghi "không có missing"). Maven: kiểm tra các giá trị `Customer Status` | Báo cáo EDA ngắn: kích thước, tỷ lệ churn, kiểu dữ liệu | ☐ |
-| 1.2 | Tiền xử lý IBM | Chuyển nhãn `Churn` → 0/1; mã hoá biến phân loại; giữ lại cột **doanh thu hàng tháng** (`MonthlyCharges`) và **tenure** để tính CLV/KM (đây là `R_i` và `T_i`) | `IBM_clean.csv` | ☐ |
-| 1.3 | Tiền xử lý Maven | **Loại 6% "new joiners"** (Customer Status = Joined) để về bài toán nhị phân. **Loại các cột rò rỉ nhãn** như `Churn Category`, `Churn Reason` (chỉ có giá trị khi đã churn) – đối chiếu với code gốc xem tác giả xử lý thế nào. Với các cột định danh/địa lý (ID, Zip, Lat/Long, City) quyết định giữ hay bỏ và ghi lý do | `Maven_clean.csv`, bảng cột đã loại | ☐ |
-| 1.4 | Chia train/test **một lần** | Chia một lần, stratify theo nhãn, cố định seed; lưu chỉ số để mọi mô hình dùng chung. Tỷ lệ theo code gốc (nếu không rõ: 80/20). **Không SMOTE, không `class_weight`** để giữ phân bố gốc | `split_idx_{ibm,maven}.npy` | ☐ |
-| 1.5 | Kaplan–Meier (chỉ fit trên **train**) | `KaplanMeierFitter(duration=tenure, event=churn)`. Churn = sự kiện, chưa churn = censored. Tính `S(t)`. **Chống leakage:** không fit trên toàn bộ dữ liệu; KM **fit một lần**, giữ cố định trong tuning (không fit lại theo fold) | Hàm `survival.py`, đường cong KM (đối chiếu Hình 2a, 3a) | ☐ |
-| 1.6 | Tính TRR & ARR | `r_TRR_i = S(T_i + 1) / S(T_i)` (Δ = 1 tháng); `r_ARR = mean(r_TRR)`; **cap `min(r, 0.995)`**. Mốc kiểm tra: **ARR ≈ 0.77 (IBM), ≈ 0.75 (Maven)** | Cột `r_TRR`, hằng số `r_ARR` | ☐ |
-| 1.7 | Cài đặt e-Profits | `CLV = R·M / (1 − min(r, 0.995))` với `M = 0.3`; `C_offer = CPO·CLV` (`CPO = 0.1`); `C_contact = max(c0, c1·C_offer)`; lợi nhuận mỗi khách: TP = `CLV − C_offer − C_contact`, FP = `−C_offer − C_contact`, còn lại = 0; ngưỡng phân lớp **0.5**. Hỗ trợ `η = 1.0` (toàn bộ) và `η = 0.2` (top 20%) × `{ARR, TRR}` | `eprofits.py` | ☐ |
-| 1.8 | **Unit test bằng ví dụ Phụ lục A** | 5 khách hàng A–E (Bảng 9). Kết quả phải ra đúng **228,8 (TRR)** và **308,75 (ARR)** với `M=0.3, CPO=0.1, c0=5, c1=0.3`. Đây là bước kiểm chứng công thức quan trọng nhất trước khi chạy mô hình | `tests/test_eprofits_toy.py` pass | ☐ |
-| 1.9 | Cài đặt các thang đo | Accuracy, F1, AUC, Top-Decile Lift, Lift Index, e-Profits (4 biến thể), EMP (tuỳ chọn, ưu tiên thấp – cần thư viện/tự cài với `CLV=200, C_offer=10, C_contact=1`) | `evaluate.py` | ☐ |
-| 1.10 | Chuẩn bị 6 mô hình + lưới siêu tham số | RF, GBC, XGB, LGBM, CBC, EBM theo **Bảng 2** của bài báo (RF 108 tổ hợp, XGB 54, GBC 27, LGBM 8, CBC 8, EBM 72) | `models_base.py` | ☐ |
-| 1.11 | Scorer e-Profits cho `GridSearchCV` | Viết `make_scorer` tự định nghĩa: nhận chỉ số fold, tra `R_i`, `r_i` của các khách trong fold, tính e-Profits. KM giữ cố định. Cần cách truyền `R`, `r` theo index (ví dụ giữ DataFrame và dùng `X.index`) | Scorer kiểm tra được | ☐ |
-| 1.12 | Huấn luyện + tuning | `GridSearchCV`, 5-fold CV **chỉ trên train**, với các mục tiêu tuning: AUC, Accuracy, F1, **e-Profits (TRR, toàn bộ)**; EMP làm sau nếu có thời gian. Sau tuning refit trên toàn bộ train, **đánh giá một lần trên test**. EBM chậm → dùng `n_jobs`/GPU, chạy qua đêm | `results/phase1_{ibm,maven}.csv` | ☐ |
-| 1.13 | Dựng lại Bảng 3, 4, 5 | Cùng định dạng cột như bài báo (F1, Acc, AUC, TDL, Lift index, e-Prof ×4, EMP) | `table3_repro.csv`, `table4_repro.csv`, `table5_repro.csv` | ☐ |
-| 1.14 | (Nên làm) Thống kê | Bootstrap 500 lần trên test → CI 95% (Bảng 6); Wilcoxon (Bảng 7); Spearman giữa xếp hạng AUC và xếp hạng profit (Bảng 8, kỳ vọng ρ ≈ 0.4–0.5) | `table6–8_repro.csv` | ☐ |
-| 1.15 | Đối chiếu với bài báo | Bảng **Bài báo vs Tự chạy lại**: chênh lệch tuyệt đối và %. Phân tích nguyên nhân lệch (seed, split khác, phiên bản thư viện, tham số không nêu) | `repro_comparison.csv` + đoạn phân tích | ☐ |
-| 1.16 | Kiểm chứng 2 kết luận chính | (a) Khi tuning trên e-Profits, **XGBoost** có e-Profits toàn bộ cao nhất (bài báo: IBM ≈ 10,99 triệu, Maven ≈ 1,063 triệu). (b) **Mô hình AUC cao nhất chưa chắc lời nhiều nhất**: khi tuning theo AUC, EBM có AUC cao nhất nhưng RF có e-Profits cao hơn (IBM ≈ 9,10 triệu vs 7,89 triệu; Maven ≈ 997 nghìn vs 880 nghìn). Nếu số của nhóm khác, **báo cáo trung thực** thay vì ép cho khớp | Biểu đồ/bảng minh hoạ (AUC vs e-Profits), kết luận | ☐ |
+| 1 | Tải & kiểm tra dữ liệu | IBM: kiểm tra `TotalCharges` (bản Kaggle thường có một số ô rỗng dù bài báo ghi "không có missing"). Maven: kiểm tra các giá trị `Customer Status` | Báo cáo EDA ngắn: kích thước, tỷ lệ churn, kiểu dữ liệu | ☐ |
+| 2 | Tiền xử lý IBM | Chuyển nhãn `Churn` → 0/1; mã hoá biến phân loại; giữ lại cột **doanh thu hàng tháng** (`MonthlyCharges`) và **tenure** để tính CLV/KM (đây là `R_i` và `T_i`) | `IBM_clean.csv` | ☐ |
+| 3 | Tiền xử lý Maven | **Loại 6% "new joiners"** (Customer Status = Joined) để về bài toán nhị phân. **Loại các cột rò rỉ nhãn** như `Churn Category`, `Churn Reason` (chỉ có giá trị khi đã churn) – đối chiếu với code gốc xem tác giả xử lý thế nào. Với các cột định danh/địa lý (ID, Zip, Lat/Long, City) quyết định giữ hay bỏ và ghi lý do | `Maven_clean.csv`, bảng cột đã loại | ☐ |
+| 4 | Chia train/test **một lần** | Chia một lần, stratify theo nhãn, cố định seed; lưu chỉ số để mọi mô hình dùng chung. Tỷ lệ theo code gốc (nếu không rõ: 80/20). **Không SMOTE, không `class_weight`** để giữ phân bố gốc | `split_idx_{ibm,maven}.npy` | ☐ |
+| 5 | Kaplan–Meier (chỉ fit trên **train**) | `KaplanMeierFitter(duration=tenure, event=churn)`. Churn = sự kiện, chưa churn = censored. Tính `S(t)`. **Chống leakage:** không fit trên toàn bộ dữ liệu; KM **fit một lần**, giữ cố định trong tuning (không fit lại theo fold) | Hàm `survival.py`, đường cong KM (đối chiếu Hình 2a, 3a) | ☐ |
+| 6 | Tính TRR & ARR | `r_TRR_i = S(T_i + 1) / S(T_i)` (Δ = 1 tháng); `r_ARR = mean(r_TRR)`; **cap `min(r, 0.995)`**. Mốc kiểm tra: **ARR ≈ 0.77 (IBM), ≈ 0.75 (Maven)** | Cột `r_TRR`, hằng số `r_ARR` | ☐ |
+| 7 | Cài đặt e-Profits | `CLV = R·M / (1 − min(r, 0.995))` với `M = 0.3`; `C_offer = CPO·CLV` (`CPO = 0.1`); `C_contact = max(c0, c1·C_offer)`; lợi nhuận mỗi khách: TP = `CLV − C_offer − C_contact`, FP = `−C_offer − C_contact`, còn lại = 0; ngưỡng phân lớp **0.5**. Hỗ trợ `η = 1.0` (toàn bộ) và `η = 0.2` (top 20%) × `{ARR, TRR}` | `eprofits.py` | ☐ |
+| 8 | **Unit test bằng ví dụ Phụ lục A** | 5 khách hàng A–E (Bảng 9). Kết quả phải ra đúng **228,8 (TRR)** và **308,75 (ARR)** với `M=0.3, CPO=0.1, c0=5, c1=0.3`. Đây là bước kiểm chứng công thức quan trọng nhất trước khi chạy mô hình | `tests/test_eprofits_toy.py` pass | ☐ |
+| 9 | Cài đặt các thang đo | Accuracy, F1, AUC, Top-Decile Lift, Lift Index, e-Profits (4 biến thể), EMP (tuỳ chọn, ưu tiên thấp – cần thư viện/tự cài với `CLV=200, C_offer=10, C_contact=1`) | `evaluate.py` | ☐ |
+| 10 | Chuẩn bị 6 mô hình + lưới siêu tham số | RF, GBC, XGB, LGBM, CBC, EBM theo **Bảng 2** của bài báo (RF 108 tổ hợp, XGB 54, GBC 27, LGBM 8, CBC 8, EBM 72) | `models_base.py` | ☐ |
+| 11 | Scorer e-Profits cho `GridSearchCV` | Viết `make_scorer` tự định nghĩa: nhận chỉ số fold, tra `R_i`, `r_i` của các khách trong fold, tính e-Profits. KM giữ cố định. Cần cách truyền `R`, `r` theo index (ví dụ giữ DataFrame và dùng `X.index`) | Scorer kiểm tra được | ☐ |
+| 12 | Huấn luyện + tuning | `GridSearchCV`, 5-fold CV **chỉ trên train**, với các mục tiêu tuning: AUC, Accuracy, F1, **e-Profits (TRR, toàn bộ)**; EMP làm sau nếu có thời gian. Sau tuning refit trên toàn bộ train, **đánh giá một lần trên test**. EBM chậm → dùng `n_jobs`/GPU, chạy qua đêm | `results/phase1_{ibm,maven}.csv` | ☐ |
+| 13 | Dựng lại Bảng 3, 4, 5 | Cùng định dạng cột như bài báo (F1, Acc, AUC, TDL, Lift index, e-Prof ×4, EMP) | `table3_repro.csv`, `table4_repro.csv`, `table5_repro.csv` | ☐ |
+| 14 | (Nên làm) Thống kê | Bootstrap 500 lần trên test → CI 95% (Bảng 6); Wilcoxon (Bảng 7); Spearman giữa xếp hạng AUC và xếp hạng profit (Bảng 8, kỳ vọng ρ ≈ 0.4–0.5) | `table6–8_repro.csv` | ☐ |
+| 15 | Đối chiếu với bài báo | Bảng **Bài báo vs Tự chạy lại**: chênh lệch tuyệt đối và %. Phân tích nguyên nhân lệch (seed, split khác, phiên bản thư viện, tham số không nêu) | `repro_comparison.csv` + đoạn phân tích | ☐ |
+| 16 | Kiểm chứng 2 kết luận chính | (a) Khi tuning trên e-Profits, **XGBoost** có e-Profits toàn bộ cao nhất (bài báo: IBM ≈ 10,99 triệu, Maven ≈ 1,063 triệu). (b) **Mô hình AUC cao nhất chưa chắc lời nhiều nhất**: khi tuning theo AUC, EBM có AUC cao nhất nhưng RF có e-Profits cao hơn (IBM ≈ 9,10 triệu vs 7,89 triệu; Maven ≈ 997 nghìn vs 880 nghìn). Nếu số của nhóm khác, **báo cáo trung thực** thay vì ép cho khớp | Biểu đồ/bảng minh hoạ (AUC vs e-Profits), kết luận | ☐ |
 
 **Tiêu chí chấp nhận (đề xuất):**
 - ARR của nhóm ≈ 0.77 / 0.75; ví dụ Phụ lục A ra đúng 228,8 và 308,75.
@@ -91,17 +93,17 @@ project/
 
 **Input:** dữ liệu đã tiền xử lý và chia train/test như Giai đoạn 1 (dùng lại đúng split, KM, hàm e-Profits).
 
-| ID | Công việc | Chi tiết | Output | Trạng thái |
+| STT | Công việc | Chi tiết | Output | Trạng thái |
 |---|---|---|---|---|
-| M1.1 | Pipeline tiền xử lý cho DL | Biến số: `QuantileTransformer`/chuẩn hoá; biến phân loại: embedding (FT-T) hoặc one-hot/ordinal (NODE). Fit bộ biến đổi **chỉ trên train** | `preprocess_dl.py` | ☐ |
-| M1.2 | FT-Transformer | Dùng `rtdl_revisiting_models` hoặc `pytorch_tabular`. Cấu hình **nhỏ**: `d_token` 32–64, 1–3 block, 4 head, dropout 0.1–0.3, AdamW + weight decay. Early stopping | `results/m1_ftt.csv` | ☐ |
-| M1.3 | NODE | Dùng `pytorch_tabular` (`NodeConfig`) hoặc repo gốc NODE. Cấu hình nhỏ: 1–2 layer, 128–512 cây, depth 4–6, `entmax15`. Khởi tạo theo dữ liệu (cần batch lớn cho lần đầu) | `results/m1_node.csv` | ☐ |
-| M1.4 | Tuning công bằng | GBDT trong bài báo được tune bằng lưới nhỏ; DL dùng Optuna **20–30 trial**, 5-fold CV trên train, mục tiêu e-Profits (TRR, toàn bộ) và AUC. Ghi rõ ngân sách để so sánh minh bạch | `optuna_*.db`, bảng không gian tìm kiếm | ☐ |
-| M1.5 | Nhiều seed | Mỗi mô hình DL chạy **5–10 seed**, báo cáo mean ± std; mô hình cuối có thể ensemble các seed | Bảng mean ± std | ☐ |
-| M1.6 | Hiệu chuẩn xác suất cho DL | Tách một phần validation **từ train** để early stopping + hiệu chuẩn (Platt/temperature). Báo cáo Brier/ECE. (Lý do: e-Profits phụ thuộc ngưỡng 0.5 và đầu ra xác suất) | Biểu đồ reliability | ☐ |
-| M1.7 | Đánh giá trên test | Tính đủ bộ thang đo như Giai đoạn 1 | `m1_all_models.csv` | ☐ |
-| M1.8 | **Bảng so sánh chính** | **XGBoost (gốc) vs FT-Transformer vs NODE**: AUC, F1, Acc, e-Profits (full/top20, ARR/TRR), thời gian train/inference, số tham số | `m1_comparison.csv` + biểu đồ | ☐ |
-| M1.9 | Phân tích | Mô hình nào lời nhất? DL có thắng XGB trên dữ liệu nhỏ? Vì sao? (liên hệ mục 3.1 bên dưới) | Đoạn phân tích trong báo cáo | ☐ |
+| 1 | Pipeline tiền xử lý cho DL | Biến số: `QuantileTransformer`/chuẩn hoá; biến phân loại: embedding (FT-T) hoặc one-hot/ordinal (NODE). Fit bộ biến đổi **chỉ trên train** | `preprocess_dl.py` | ☐ |
+| 2 | FT-Transformer | Dùng `rtdl_revisiting_models` hoặc `pytorch_tabular`. Cấu hình **nhỏ**: `d_token` 32–64, 1–3 block, 4 head, dropout 0.1–0.3, AdamW + weight decay. Early stopping | `results/m1_ftt.csv` | ☐ |
+| 3 | NODE | Dùng `pytorch_tabular` (`NodeConfig`) hoặc repo gốc NODE. Cấu hình nhỏ: 1–2 layer, 128–512 cây, depth 4–6, `entmax15`. Khởi tạo theo dữ liệu (cần batch lớn cho lần đầu) | `results/m1_node.csv` | ☐ |
+| 4 | Tuning công bằng | GBDT trong bài báo được tune bằng lưới nhỏ; DL dùng Optuna **20–30 trial**, 5-fold CV trên train, mục tiêu e-Profits (TRR, toàn bộ) và AUC. Ghi rõ ngân sách để so sánh minh bạch | `optuna_*.db`, bảng không gian tìm kiếm | ☐ |
+| 5 | Nhiều seed | Mỗi mô hình DL chạy **5–10 seed**, báo cáo mean ± std; mô hình cuối có thể ensemble các seed | Bảng mean ± std | ☐ |
+| 6 | Hiệu chuẩn xác suất cho DL | Tách một phần validation **từ train** để early stopping + hiệu chuẩn (Platt/temperature). Báo cáo Brier/ECE. (Lý do: e-Profits phụ thuộc ngưỡng 0.5 và đầu ra xác suất) | Biểu đồ reliability | ☐ |
+| 7 | Đánh giá trên test | Tính đủ bộ thang đo như Giai đoạn 1 | `m1_all_models.csv` | ☐ |
+| 8 | **Bảng so sánh chính** | **XGBoost (gốc) vs FT-Transformer vs NODE**: AUC, F1, Acc, e-Profits (full/top20, ARR/TRR), thời gian train/inference, số tham số | `m1_comparison.csv` + biểu đồ | ☐ |
+| 9 | Phân tích | Mô hình nào lời nhất? DL có thắng XGB trên dữ liệu nhỏ? Vì sao? (liên hệ mục 3.1 bên dưới) | Đoạn phân tích trong báo cáo | ☐ |
 
 ### 3.1 Vấn đề: FT-Transformer và NODE trên dữ liệu chỉ vài nghìn dòng
 
@@ -132,18 +134,18 @@ Số liệu thực tế: sau khi chia 80/20, train IBM ≈ 5,6 nghìn dòng; Mav
 
 ## 4. GIAI ĐOẠN 2 – MODULE 2: Cân bằng nhãn bằng SMOTE
 
-| ID | Công việc | Chi tiết | Output | Trạng thái |
+| STT | Công việc | Chi tiết | Output | Trạng thái |
 |---|---|---|---|---|
-| M2.1 | Ghi lại phân bố trước SMOTE | Số lượng và tỷ lệ Churn/Non-Churn của **tập train** IBM và Maven | Bảng "trước" | ☐ |
-| M2.2 | Áp dụng SMOTE **chỉ trên train** | Dữ liệu trộn số + phân loại → dùng **SMOTENC** (hoặc mã hoá phù hợp), không dùng SMOTE thuần trên one-hot. Test giữ nguyên phân bố gốc | `X_train_smote`, `y_train_smote` | ☐ |
-| M2.3 | Ghi lại phân bố sau SMOTE | Bảng và biểu đồ cột trước/sau cho cả hai dataset | Bảng + hình "trước/sau" | ☐ |
-| M2.4 | Tránh leakage khi tuning | Nếu tune lại trong CV: đặt SMOTE bên trong `imblearn.pipeline.Pipeline` để chỉ áp lên phần train của từng fold. **Kaplan–Meier vẫn fit trên train gốc** (không phải train đã SMOTE) và `R_i`, `r_i` của validation/test lấy từ khách hàng thật | Pipeline đúng | ☐ |
-| M2.5 | Huấn luyện lại XGBoost | Hai cấu hình: (a) **giữ nguyên siêu tham số tốt nhất** của Giai đoạn 1 (cô lập tác động của SMOTE); (b) tune lại trên dữ liệu đã SMOTE (nếu còn thời gian) | Mô hình XGB-SMOTE | ☐ |
-| M2.6 | Dự đoán trên test | Xuất **xác suất** và **nhãn (ngưỡng 0.5)** | `m2_pred_{ibm,maven}.csv` | ☐ |
-| M2.7 | Tính lại e-Profits | Bằng KM đã fit trên train gốc; đủ 4 biến thể (full/top20 × ARR/TRR) | `m2_eprofits.csv` | ☐ |
-| M2.8 | So sánh trực tiếp XGB vs XGB+SMOTE | Chênh lệch **số tiền** (tuyệt đối và %); số TP/FP/FN/TN; precision/recall; tỷ lệ khách bị can thiệp; tổng chi phí can thiệp; doanh thu giữ lại; AUC, Brier | Bảng so sánh + biểu đồ phân rã e-Profits (TP − chi phí FP) | ☐ |
-| M2.9 | Phân tích ý nghĩa | SMOTE làm gì với xác suất, ngưỡng 0.5 và e-Profits? (xem lưu ý bên dưới) | Đoạn phân tích | ☐ |
-| M2.10 | (Tuỳ chọn) Minh hoạ "lợi nhuận ảo" | Tính e-Profits trên một tập **đã bị cân bằng** (không phải test thật) để cho thấy con số bị phình/méo so với thực tế kinh doanh – đánh dấu rõ đây là thí nghiệm minh hoạ, không hợp lệ về mặt đánh giá | Hình minh hoạ | ☐ |
+| 1 | Ghi lại phân bố trước SMOTE | Số lượng và tỷ lệ Churn/Non-Churn của **tập train** IBM và Maven | Bảng "trước" | ☐ |
+| 2 | Áp dụng SMOTE **chỉ trên train** | Dữ liệu trộn số + phân loại → dùng **SMOTENC** (hoặc mã hoá phù hợp), không dùng SMOTE thuần trên one-hot. Test giữ nguyên phân bố gốc | `X_train_smote`, `y_train_smote` | ☐ |
+| 3 | Ghi lại phân bố sau SMOTE | Bảng và biểu đồ cột trước/sau cho cả hai dataset | Bảng + hình "trước/sau" | ☐ |
+| 4 | Tránh leakage khi tuning | Nếu tune lại trong CV: đặt SMOTE bên trong `imblearn.pipeline.Pipeline` để chỉ áp lên phần train của từng fold. **Kaplan–Meier vẫn fit trên train gốc** (không phải train đã SMOTE) và `R_i`, `r_i` của validation/test lấy từ khách hàng thật | Pipeline đúng | ☐ |
+| 5 | Huấn luyện lại XGBoost | Hai cấu hình: (a) **giữ nguyên siêu tham số tốt nhất** của Giai đoạn 1 (cô lập tác động của SMOTE); (b) tune lại trên dữ liệu đã SMOTE (nếu còn thời gian) | Mô hình XGB-SMOTE | ☐ |
+| 6 | Dự đoán trên test | Xuất **xác suất** và **nhãn (ngưỡng 0.5)** | `m2_pred_{ibm,maven}.csv` | ☐ |
+| 7 | Tính lại e-Profits | Bằng KM đã fit trên train gốc; đủ 4 biến thể (full/top20 × ARR/TRR) | `m2_eprofits.csv` | ☐ |
+| 8 | So sánh trực tiếp XGB vs XGB+SMOTE | Chênh lệch **số tiền** (tuyệt đối và %); số TP/FP/FN/TN; precision/recall; tỷ lệ khách bị can thiệp; tổng chi phí can thiệp; doanh thu giữ lại; AUC, Brier | Bảng so sánh + biểu đồ phân rã e-Profits (TP − chi phí FP) | ☐ |
+| 9 | Phân tích ý nghĩa | SMOTE làm gì với xác suất, ngưỡng 0.5 và e-Profits? (xem lưu ý bên dưới) | Đoạn phân tích | ☐ |
+| 10 | (Tuỳ chọn) Minh hoạ "lợi nhuận ảo" | Tính e-Profits trên một tập **đã bị cân bằng** (không phải test thật) để cho thấy con số bị phình/méo so với thực tế kinh doanh – đánh dấu rõ đây là thí nghiệm minh hoạ, không hợp lệ về mặt đánh giá | Hình minh hoạ | ☐ |
 
 **Lưu ý khi viết kết luận Module 2:**
 - Đề cương nêu "SMOTE làm sai lệch hoàn toàn giá trị lợi nhuận", nhưng **bản bài báo nhóm gửi không bàn trực tiếp về SMOTE**; bài chỉ không dùng cân bằng dữ liệu và nhấn mạnh giữ phân bố gốc. Vì vậy nhóm nên **chứng minh bằng số liệu thực nghiệm** thay vì trích dẫn như một kết luận có sẵn của tác giả.
@@ -154,7 +156,7 @@ Số liệu thực tế: sau khi chia 80/20, train IBM ≈ 5,6 nghìn dòng; Mav
 
 ## 5. Ánh xạ sang cấu trúc báo cáo của môn học
 
-| Mục báo cáo (đề cương IS403) | Lấy từ |
+| Mục báo cáo | Lấy từ |
 |---|---|
 | 1. Mở đầu (bối cảnh, bài gốc, động lực, đóng góp) | Tóm tắt bài e-Profits; động lực: dữ liệu nhỏ vs DL, SMOTE vs bảo toàn phân bố |
 | 2. Cơ sở lý thuyết & phương pháp gốc | Eq.1–8, KM, CLV, mô hình chi phí, 6 mô hình, quy trình tuning (mục 3 bài báo) |
@@ -169,14 +171,14 @@ Số liệu thực tế: sau khi chia 80/20, train IBM ≈ 5,6 nghìn dòng; Mav
 
 ### Module 3 – Phân tích độ nhạy kinh doanh (input: dự đoán của XGBoost)
 
-| ID | Công việc | Chi tiết | Output |
+| STT | Công việc | Chi tiết | Output |
 |---|---|---|---|
-| M3.1 | Quét `CPO` | Ví dụ 0.05 → 0.30 (bài báo tuyên bố thứ hạng ổn định trong [0.05, 0.2] nhưng không trình bày thí nghiệm – nhóm có thể kiểm chứng điều này). Tính e-Profits của XGB vs LightGBM (và các mô hình khác) | Biểu đồ đường e-Profits theo CPO |
-| M3.2 | Điểm lỗ | Tìm CPO mà e-Profits chuyển âm; so sánh XGB vs LGBM có đổi thứ hạng không | Phân tích 1 |
-| M3.3 | Kịch bản lạm phát | Quét lạm phát 0–20%: giảm `M`, tăng `c0` và `CPO` theo `(1+π)`; tìm **điểm hoà vốn** | Biểu đồ + điểm gãy |
-| M3.4 | SMS vs gọi điện | Mô hình hai kênh với chi phí và tỷ lệ phản hồi khác nhau; chọn kênh theo từng phân khúc để tối đa lợi nhuận | Bảng chính sách kênh |
-| M4.1 | Ablation theo cụm đặc trưng | Nhân khẩu học / dịch vụ / tài chính–hoá đơn; bỏ từng cụm, train lại XGB, đo sụt giảm e-Profits | Bảng sụt giảm tiền |
-| M4.2 | Bơm nhiễu | Nhiễu 5/10/20%: Gaussian cho biến số, đảo nhãn cho biến phân loại; train lại XGB, FT-T, NODE; so đường sụt giảm Acc/AUC với e-Profits | Biểu đồ độ bền |
+| 3.1 | Quét `CPO` | Ví dụ 0.05 → 0.30 (bài báo tuyên bố thứ hạng ổn định trong [0.05, 0.2] nhưng không trình bày thí nghiệm – nhóm có thể kiểm chứng điều này). Tính e-Profits của XGB vs LightGBM (và các mô hình khác) | Biểu đồ đường e-Profits theo CPO |
+| 3.2 | Điểm lỗ | Tìm CPO mà e-Profits chuyển âm; so sánh XGB vs LGBM có đổi thứ hạng không | Phân tích 1 |
+| 3.3 | Kịch bản lạm phát | Quét lạm phát 0–20%: giảm `M`, tăng `c0` và `CPO` theo `(1+π)`; tìm **điểm hoà vốn** | Biểu đồ + điểm gãy |
+| 3.4 | SMS vs gọi điện | Mô hình hai kênh với chi phí và tỷ lệ phản hồi khác nhau; chọn kênh theo từng phân khúc để tối đa lợi nhuận | Bảng chính sách kênh |
+| 4.1 | Ablation theo cụm đặc trưng | Nhân khẩu học / dịch vụ / tài chính–hoá đơn; bỏ từng cụm, train lại XGB, đo sụt giảm e-Profits | Bảng sụt giảm tiền |
+| 4.2 | Bơm nhiễu | Nhiễu 5/10/20%: Gaussian cho biến số, đảo nhãn cho biến phân loại; train lại XGB, FT-T, NODE; so đường sụt giảm Acc/AUC với e-Profits | Biểu đồ độ bền |
 
 **Điểm cần lưu ý trước khi làm Giai đoạn 3:**
 - **Lạm phát:** đề cương yêu cầu dùng hệ số/công thức có nguồn uy tín, nhưng ví dụ `M = 0.3·(1 − lạm phát)` chỉ là giả định. Cần tìm nguồn (ví dụ CPI từ Tổng cục Thống kê/World Bank và tài liệu về pass-through chi phí) để biện minh cách ánh xạ lạm phát sang `M`, `c0`, `CPO`; nếu không có thì ghi rõ đây là kịch bản giả định.
@@ -199,18 +201,3 @@ Số liệu thực tế: sau khi chia 80/20, train IBM ≈ 5,6 nghìn dòng; Mav
 | 6 | Thời gian chạy GridSearch (EBM, RF) | Dùng `n_jobs=-1`, chạy qua đêm, lưu kết quả trung gian |
 
 ---
-
-## 8. Gợi ý lộ trình (tính theo tuần, điều chỉnh theo hạn nộp)
-
-| Tuần | Nội dung |
-|---|---|
-| 1 | 0.1–0.6, 1.1–1.4 (dữ liệu sạch, split, môi trường) |
-| 2 | 1.5–1.9 (KM, e-Profits, unit test, thang đo) |
-| 3 | 1.10–1.13 (tuning + dựng lại Bảng 3–5) |
-| 4 | 1.14–1.16 (thống kê, đối chiếu bài báo) · bắt đầu M1.1–M1.3 |
-| 5 | M1.4–M1.11 (FT-T, NODE, so sánh) |
-| 6 | M2.1–M2.10 (SMOTE) |
-| 7 | Viết báo cáo, làm slide; nếu dư thời gian thì Module 3 (M3.1–M3.3) |
-| 8 | Hoàn thiện, rà soát, luyện thuyết trình |
-
-> Lưu ý quy định môn học (đề cương IS403): nhóm tối đa 5 sinh viên; nộp trễ 1 ngày trừ 20%, trễ hơn 1 ngày coi như không nộp.
