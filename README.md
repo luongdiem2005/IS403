@@ -145,7 +145,7 @@ Số liệu thực tế: sau khi chia 80/20, train IBM ≈ 5,6 nghìn dòng; Mav
 **Lưu ý khi viết kết luận Module 2:**
 - Đề cương nêu "SMOTE làm sai lệch hoàn toàn giá trị lợi nhuận", nhưng **bản bài báo nhóm gửi không bàn trực tiếp về SMOTE**; bài chỉ không dùng cân bằng dữ liệu và nhấn mạnh giữ phân bố gốc. Vì vậy nhóm nên **chứng minh bằng số liệu thực nghiệm** thay vì trích dẫn như một kết luận có sẵn của tác giả.
 - Nếu SMOTE chỉ áp trên train và test giữ phân bố thật, thì e-Profits tính trên test **vẫn hợp lệ**. Cái bị lệch là **phân bố xác suất đầu ra** (xác suất bị đẩy lên → nhiều dự đoán churn hơn → recall tăng nhưng FP tăng) và tương tác với ngưỡng cố định 0.5. Kết quả có thể là e-Profits tăng, giảm hoặc gần như không đổi tuỳ dataset; **báo cáo đúng những gì thu được**, rồi giải thích bằng phân rã TP/FP.
-- Phần "sai lệch hoàn toàn" đúng nghĩa xảy ra khi **đánh giá hoặc ước lượng KM/CLV trên dữ liệu đã cân bằng** (M2.10) – hãy tách bạch hai tình huống này trong báo cáo.
+- Phần "sai lệch hoàn toàn" đúng nghĩa xảy ra khi **đánh giá hoặc ước lượng KM/CLV trên dữ liệu đã cân bằng** – hãy tách bạch hai tình huống này trong báo cáo.
 
 ---
 
@@ -156,7 +156,7 @@ Số liệu thực tế: sau khi chia 80/20, train IBM ≈ 5,6 nghìn dòng; Mav
 | 1. Mở đầu (bối cảnh, bài gốc, động lực, đóng góp) | Tóm tắt bài e-Profits; động lực: dữ liệu nhỏ vs DL, SMOTE vs bảo toàn phân bố |
 | 2. Cơ sở lý thuyết & phương pháp gốc | Eq.1–8, KM, CLV, mô hình chi phí, 6 mô hình, quy trình tuning (mục 3 bài báo) |
 | 3. Phương pháp mở rộng | Module 1 (FT-T, NODE) và Module 2 (SMOTE), kèm lý do chọn |
-| 4. Thực nghiệm & đánh giá | Thiết lập (split, phần cứng, siêu tham số, thang đo) → Kết quả tái hiện (1.13–1.16) → Kết quả mở rộng (M1.10, M2.8) + phân tích lỗi |
+| 4. Thực nghiệm & đánh giá | Thiết lập (split, phần cứng, siêu tham số, thang đo) → Kết quả tái hiện → Kết quả mở rộng + phân tích lỗi |
 | 5. Kết luận & hướng phát triển | Tóm tắt, hạn chế (dữ liệu nhỏ, tham số giả định), hướng tiếp theo (Module 3, 4) |
 | Tài liệu tham khảo | References của bài gốc + Gorishniy et al., NODE, SMOTE, Platt |
 
