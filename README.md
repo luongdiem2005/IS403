@@ -33,7 +33,7 @@
 
 | STT | Công việc | Chi tiết | Output |
 |---|---|---|---|
-| 1 | Đọc kỹ bài báo | Mục 3 (công thức Eq.1–8), Bảng 2 (lưới siêu tham số), Bảng 3–4 (kết quả), Phụ lục A (ví dụ 5 khách hàng) | Ghi chú tóm tắt công thức + tham số |
+| 1 | Đọc kỹ bài báo | Mục 3 (công thức Eq.1–8), Bảng 2 (lưới siêu tham số), Bảng 3–4 (kết quả), Phụ lục A | Ghi chú tóm tắt công thức + tham số |
 | 2 | Đọc code gốc | Clone repo, đọc 4 file `.py` / notebook của IBM và Maven. **Ghi lại những gì bài báo không nói rõ**: tỷ lệ chia train/test, `random_state`, `stratify`, giá trị `c0`, `c1` trong thí nghiệm chính (phụ lục chỉ dùng `c0=5, c1=0.3` cho ví dụ), cách chọn "top 20%", đơn vị tenure | Bảng "tham số bài báo không nêu" (xem mục 7) |
 | 3 | Dựng môi trường | Python 3.10+, `scikit-learn`, `xgboost`, `lightgbm`, `catboost`, `interpret` (EBM), `lifelines` (Kaplan–Meier), `imbalanced-learn`, `torch`, `pytorch_tabular` hoặc `rtdl`, `optuna`. Khoá phiên bản bằng `requirements.txt`. Chạy trên Colab/Kaggle GPU cho phần deep learning | `requirements.txt`, môi trường chạy được |
 | 4 | Cấu trúc repo nhóm | Xem sơ đồ bên dưới | Repo GitHub của nhóm |
@@ -81,11 +81,6 @@ project/
 | 14 | (Nên làm) Thống kê | Bootstrap 500 lần trên test → CI 95% (Bảng 6); Wilcoxon (Bảng 7); Spearman giữa xếp hạng AUC và xếp hạng profit (Bảng 8, kỳ vọng ρ ≈ 0.4–0.5) | `table6–8_repro.csv` | ☐ |
 | 15 | Đối chiếu với bài báo | Bảng **Bài báo vs Tự chạy lại**: chênh lệch tuyệt đối và %. Phân tích nguyên nhân lệch (seed, split khác, phiên bản thư viện, tham số không nêu) | `repro_comparison.csv` + đoạn phân tích | ☐ |
 | 16 | Kiểm chứng 2 kết luận chính | (a) Khi tuning trên e-Profits, **XGBoost** có e-Profits toàn bộ cao nhất (bài báo: IBM ≈ 10,99 triệu, Maven ≈ 1,063 triệu). (b) **Mô hình AUC cao nhất chưa chắc lời nhiều nhất**: khi tuning theo AUC, EBM có AUC cao nhất nhưng RF có e-Profits cao hơn (IBM ≈ 9,10 triệu vs 7,89 triệu; Maven ≈ 997 nghìn vs 880 nghìn). Nếu số của nhóm khác, **báo cáo trung thực** thay vì ép cho khớp | Biểu đồ/bảng minh hoạ (AUC vs e-Profits), kết luận | ☐ |
-
-**Tiêu chí chấp nhận (đề xuất):**
-- ARR của nhóm ≈ 0.77 / 0.75; ví dụ Phụ lục A ra đúng 228,8 và 308,75.
-- AUC/F1/Acc lệch ≤ ~1–2 điểm phần trăm so với bài báo (chính bài báo cũng ghi các chỉ số dự báo chỉ chênh 1–2 điểm giữa các chính sách tuning).
-- Thứ hạng giữa các mô hình về e-Profits giữ **cùng xu hướng**, không bắt buộc trùng từng con số.
 
 ---
 
