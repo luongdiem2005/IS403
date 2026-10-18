@@ -1,7 +1,17 @@
-# Đồ án IS403 – Tái hiện & mở rộng bài báo *e-Profits*
+# Đồ án IS403 – Tái hiện và mở rộng bài báo e-Profits
 
-> **Bài báo gốc:** Manzoor, Qureshi, Kidney, Longo (2026). *e-profits: a business-aligned evaluation metric for profit-sensitive customer churn prediction.* International Journal of Data Science and Analytics 22:75.<br>
-> **Code tác giả:** https://github.com/Awaismanzoor/eprofits (mỗi dataset có 4 file: `1-Preprocessing.py`, `2-Metrics-profitability.py`, `3-Model_training.py`, `4-Evaluation.py`, và 2 notebook `IBM_Main-Churn.ipynb`, `Maven_Main-Churn.ipynb`)<br>
+> **Bài báo gốc:** *e-profits: a business-aligned evaluation metric for profit-sensitive customer churn prediction*<br>
+"@article{manzoor2026profits,
+  title={e-profits: a business-aligned evaluation metric for profit-sensitive customer churn prediction},
+  author={Manzoor, Awais and Qureshi, M Atif and Kidney, Etain and Longo, Luca},
+  journal={International Journal of Data Science and Analytics},
+  volume={22},
+  number={1},
+  pages={75},
+  year={2026},
+  publisher={Springer}
+}"
+> **Source Code:** https://github.com/Awaismanzoor/eprofits <br>
 > **Dữ liệu:** IBM Telco (7.043 dòng, 19 đặc trưng, churn 26,5%) · Maven Telecom (7.043 dòng, 32 đặc trưng, 27% churn / 67% stay / 6% new joiner)
 
 ## 0. Phạm vi & thứ tự ưu tiên
