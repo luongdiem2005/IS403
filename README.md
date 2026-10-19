@@ -34,7 +34,7 @@
 | STT | Công việc | Chi tiết | Output |
 |---|---|---|---|
 | 1 | Đọc kỹ bài báo | Mục 3 (công thức Eq.1–8), Bảng 2 (lưới siêu tham số), Bảng 3–4 (kết quả), Phụ lục A | Ghi chú tóm tắt công thức + tham số |
-| 2 | Đọc code gốc | Clone repo, đọc 4 file `.py` / notebook của IBM và Maven. **Ghi lại những gì bài báo không nói rõ**: tỷ lệ chia train/test, `random_state`, `stratify`, giá trị `c0`, `c1` trong thí nghiệm chính (phụ lục chỉ dùng `c0=5, c1=0.3` cho ví dụ), cách chọn "top 20%", đơn vị tenure | Bảng "tham số bài báo không nêu" (xem mục 7) |
+| 2 | Đọc code gốc | Clone repo, đọc 4 file `.py` / notebook của IBM và Maven. **Ghi lại những gì bài báo không nói rõ**: tỷ lệ chia train/test, `random_state`, `stratify`, giá trị `c0`, `c1` trong thí nghiệm chính (phụ lục chỉ dùng `c0=5, c1=0.3` cho ví dụ), cách chọn "top 20%", đơn vị tenure | Các "tham số bài báo không nêu" (xem mục 7) |
 | 3 | Dựng môi trường | Python 3.10+, `scikit-learn`, `xgboost`, `lightgbm`, `catboost`, `interpret` (EBM), `lifelines` (Kaplan–Meier), `imbalanced-learn`, `torch`, `pytorch_tabular` hoặc `rtdl`, `optuna`. Khoá phiên bản bằng `requirements.txt`. Chạy trên Colab/Kaggle GPU cho phần deep learning | `requirements.txt`, môi trường chạy được |
 | 4 | Cấu trúc repo nhóm | Xem sơ đồ bên dưới | Repo GitHub của nhóm |
 | 5 | Cố định seed & log | Seed toàn cục, lưu mọi kết quả ra `results/*.csv` để dựng bảng báo cáo mà không phải chạy lại | `utils/seed.py`, thư mục `results/` |
